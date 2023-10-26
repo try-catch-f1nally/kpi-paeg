@@ -1,0 +1,15 @@
+{
+  "scripts": {
+    "lint": "eslint --ignore-path .gitignore ./**/*.js",
+    "lint:fix": "eslint --ignore-path .gitignore --fix ./**/*.js",
+    "format": "prettier --ignore-path .gitignore --ignore-unknown --check . && ec",
+    "format:fix": "prettier --ignore-path .gitignore --ignore-unknown --write . && ec",
+    "lintformatfix": "npm run lint:fix && npm run format:fix"
+  },
+  "devDependencies": {
+    "editorconfig-checker": "~4.0.2",
+    "eslint": "~8.29.0",
+    "eslint-config-prettier": "~8.5.0",
+    "prettier": "~2.8.1"
+  }
+}
