@@ -1,5 +1,5 @@
-module.exports = class Candidate {
+module.exports =  class Candidate {
   constructor(id) {
     this.id = id;
   }
-};
+}
