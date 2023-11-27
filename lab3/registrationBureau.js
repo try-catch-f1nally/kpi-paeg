@@ -4,7 +4,7 @@ module.exports = class RegistrationBureau {
   }
 
   registerElector(elector) {
-    const registrationNumber = Math.floor(Math.random() * 1000000).toString();
+    const registrationNumber = Math.floor(100000 + Math.random() * 900000).toString();
     this.registrationNumbers[registrationNumber] = elector.id;
     return registrationNumber;
   }
