@@ -15,8 +15,8 @@ module.exports =  class ElectionCommittee {
     this.registrationNumbers = registrationNumbers;
   }
 
-  receiveVote({encrypted, x, p}) {
-    const decrypted = elGamal.decrypt(encrypted, x, p);
+  receiveVote({encrypted, privateKey, publicKey}) {
+    const decrypted = elGamal.decrypt(encrypted, privateKey, publicKey);
     const voteMessage = JSON.parse(decrypted.toString());
     const registrationNumber = this.registrationNumbers.find((number) => number === voteMessage.registrationNumber);
 

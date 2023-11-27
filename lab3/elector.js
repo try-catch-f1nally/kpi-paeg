@@ -20,6 +20,6 @@ module.exports =  class Elector {
   createVoteMessage(candidateId) {
     const id = crypto.randomBytes(16).toString('hex');
     const message = {id, registrationNumber: this.registrationNumber, bulletin: candidateId};
-    return {encrypted: elGamal.encrypt(JSON.stringify(message), this.publicKey), x: this.privateKey.x, p: this.publicKey.p};
+    return {encrypted: elGamal.encrypt(JSON.stringify(message), this.publicKey), privateKey: this.privateKey, publicKey: this.publicKey};
   }
 }
