@@ -13,6 +13,7 @@ module.exports = class ElectionCommittee {
     this.tokens = [];
     this.votes = {};
     this.voteMessages = [];
+    this.alreadyVoted = [];
   }
 
   receiveIDs(IDs) {
@@ -36,9 +37,20 @@ module.exports = class ElectionCommittee {
   }
 
   processBulletins() {
+    const errors = [];
     this.voteMessages.forEach((voteMessage) => {
-      const {id, message, x0} = JSON.parse(ElGamal.decrypt(voteMessage, this.#privateKey, this.publicKey));
-      const decrypted = BlumBlumShub.decrypt(message, x0, this.electorsKeys[id]);
+      const {message, x0, id} = JSON.parse(ElGamal.decrypt(voteMessage, this.#privateKey, this.publicKey));
+      const bulletin = BlumBlumShub.decrypt(message, x0, this.electorsKeys[id]['privateKey']);
+      try {
+        if (!Object.keys(this.votes).find((element) => element === bulletin))
+          throw new Error('Vote for unregistered candidate!');
+        if (this.alreadyVoted.find((element) => element === id)) throw new Error('Elector has already voted!');
+        this.votes[bulletin]++;
+        this.alreadyVoted.push(id);
+      } catch (err) {
+        errors.push(err.message);
+      }
     });
+    return errors;
   }
 }

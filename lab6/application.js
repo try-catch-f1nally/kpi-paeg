@@ -10,14 +10,16 @@ module.exports = class Application {
 
     signIn(login, password) {
         const credential = this.registrationBureau.credentials[login];
-        if (!credential) throw new Error('User does not exist!');
+        if (!credential) throw new Error('Elector with such login does not exist!');
         if (credential !== password) throw new Error('Wrong password!');
     }
 
     vote(token, candidateId) {
-        const {id, publicKey} = token;
-        const {message, x0} = BlumBlumShub.encrypt(candidateId, publicKey);
-        const encrypted = ElGamal.encrypt(JSON.stringify({id, message, x0}), this.electionCommittee.publicKey);
-        this.electionCommittee.receiveVoteMessage(encrypted);
+      if (!this.electionCommittee.tokens.find((existingToken) => existingToken.id === token.id))
+        throw new Error('Invalid token!');
+      const {id, publicKey} = token;
+      const {message, x0} = BlumBlumShub.encrypt(candidateId, publicKey);
+      const encrypted = ElGamal.encrypt(JSON.stringify({id, message, x0}), this.electionCommittee.publicKey);
+      this.electionCommittee.receiveVoteMessage(encrypted);
     }
 }

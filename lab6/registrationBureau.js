@@ -19,13 +19,14 @@ module.exports = class RegistrationBureau {
   }
 
   receiveTokens(tokens) {
-    this.tokens = tokens;
+    this.tokens = [...tokens];
   }
 
   registerElector(elector) {
     const login = crypto.randomBytes(5).toString('hex');
     const password = crypto.randomBytes(8).toString('hex');
     this.credentials[login] = password;
-    elector.receiveRegistrationData(login, password, this.tokens[this.tokens.length - 1]);
+    const token = this.tokens.pop();
+    elector.receiveRegistrationData(login, password, token);
   }
 }
