@@ -46,8 +46,8 @@ const proceedVoting = (login, password, token, candidateId) => {
 
 proceedVoting(elector0.login, elector0.password, elector0.token, 'candidate0');
 proceedVoting(elector1.login, elector1.password, elector1.token, 'candidate1');
-proceedVoting(elector2.login, elector2.password, elector2.token, 'candidate0');
-proceedVoting(elector3.login, elector3.password, elector3.token, 'candidate2');
+proceedVoting(elector2.login, elector1.password, elector2.token, 'candidate0');
+proceedVoting(elector3.login, elector3.password, elector3.token, 'candidate0');
 proceedVoting(elector4.login, elector4.password, elector4.token, 'candidate3');
 proceedVoting(elector5.login, elector5.password, elector5.token, 'candidate1');
 proceedVoting(elector1.login, elector1.password, elector1.token, 'candidate0');
