@@ -5,7 +5,6 @@ module.exports = class Application {
     constructor(electionCommittee, registrationBureau) {
         this.electionCommittee = electionCommittee;
         this.registrationBureau = registrationBureau;
-        this.signedIn = {};
     }
 
     signIn(login, password) {

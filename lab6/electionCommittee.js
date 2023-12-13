@@ -1,5 +1,6 @@
 const ElGamal = require('../lib/elgamal.js');
 const BlumBlumShub = require('../lib/blumBlumShub.js');
+const crypto = require("node:crypto");
 
 module.exports = class ElectionCommittee {
   #privateKey;
@@ -20,7 +21,8 @@ module.exports = class ElectionCommittee {
     for (let id of IDs) {
       const {privateKey, publicKey} = BlumBlumShub.generateKeyPair();
       this.electorsKeys[id] = {privateKey};
-      this.tokens.push({id, publicKey});
+      this.tokens.push({id, publicKey, serialNumber: crypto.randomBytes(8).toString('hex').toUpperCase()
+      });
     }
   }
 

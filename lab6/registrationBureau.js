@@ -5,6 +5,7 @@ module.exports = class RegistrationBureau {
     this.registrationNumbers = [];
     this.tokens = [];
     this.credentials = {};
+    this.registeredElectors = {};
   }
 
   generateIDs(amount) {
@@ -27,6 +28,7 @@ module.exports = class RegistrationBureau {
     const password = crypto.randomBytes(8).toString('hex');
     this.credentials[login] = password;
     const token = this.tokens.pop();
+    this.registeredElectors[token.serialNumber] = {name: elector.name, birthday: elector.birthday};
     elector.receiveRegistrationData(login, password, token);
   }
 }
